@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meorient.mapper.CompanyMapper">
+
+    <resultMap id="Msg" type="com.meorient.pojo.Company">
+        <result property="companyId" column="COMPANY_ID"/>
+        <result property="fullName" column="FULL_NAME"/>
+        <result property="tranId" column="TRANID"/>
+        <result property="amount" column="AMOUNT"/>
+        <result property="memo" column="MEMO"/>
+        <result property="transactionId" column="TRANSACTION_ID"/>
+        <result property="transactionLineId" column="TRANSACTION_LINE_ID"/>
+        <result property="transactionOrder" column="TRANSACTION_ORDER"/>
+    </resultMap>
+
+    <!-- 另一种分页获取信息功能 -->
+    <select id="getAllMsgByMap" resultType="com.meorient.pojo.Company" parameterType="map">
+        select *
+        from (
+        select ROWNUM rn, b.TRANID tranId, a.TRANSACTION_LINE_ID transactionLineId, a.TRANSACTION_ORDER transactionOrder, a.COMPANY_ID companyId, c.FULL_NAME fullName,
+        a.TRANSACTION_ID transactionId, a.AMOUNT amount, a.MEMO memo
+        from TRANSACTION_LINES a
+        left join TRANSACTIONS b on a.TRANSACTION_ID = b.TRANSACTION_ID
+        left join entity c on a.COMPANY_ID = c.ENTITY_ID
+        where COMPANY_ID is not null
+        )
+        where rn <![CDATA[>=]]> #{start} and rn <![CDATA[<]]> #{end}
+        order by TRANID;
+    </select>
+
+    <!-- 一次获取全部信息 -->
+    <select id="getAllCompanyMsg" resultType="com.meorient.pojo.Company">
+        select ROWNUM rn, b.TRANID tranId, a.TRANSACTION_LINE_ID transactionLineId, a.TRANSACTION_ORDER transactionOrder, a.COMPANY_ID companyId, c.FULL_NAME fullName,
+        a.TRANSACTION_ID transactionId, a.AMOUNT amount, a.MEMO memo
+        from TRANSACTION_LINES a
+        left join TRANSACTIONS b on a.TRANSACTION_ID = b.TRANSACTION_ID
+        left join entity c on a.COMPANY_ID = c.ENTITY_ID
+        where COMPANY_ID is not null
+        order by TRANID;
+    </select>
+
+</mapper>

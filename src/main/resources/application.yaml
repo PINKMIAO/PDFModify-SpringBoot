@@ -1,0 +1,62 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: com.netsuite.jdbc.openaccess.OpenAccessDriver
+    url: jdbc:ns://5179288.connect.api.netsuite.com:1708;ServerDataSource=NetSuite.com;Encrypted=1;CustomProperties=(AccountID=5179288;RoleID=3)
+    username: DataMigration@meorient.com
+    password: "@^*gLGyGCp"
+    type: com.alibaba.druid.pool.DruidDataSource
+
+    #Spring Boot 默认是不注入这些属性值的，需要自己绑定
+    #druid 数据源专有配置
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+
+    #配置监控统计拦截的filters，stat:监控统计、log4j：日志记录、wall：防御sql注入
+    #如果允许时报错  java.lang.ClassNotFoundException: org.apache.log4j.Priority
+    #则导入 log4j 依赖即可，Maven 地址：https://mvnrepository.com/artifact/log4j/log4j
+    filters: stat,wall,log4j
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+
+
+
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+  thymeleaf:
+    cache: false
+
+#log4j:
+#  rootLogger: DEBUG,console,file
+#
+#  appender:
+#    console: org.apache.log4j.ConsoleAppender
+#      Target: System.out
+#      Threshold: DEBUG
+#      layout: org.apache.log4j.PatternLayout
+#        ConversionPattern: 【%c】-%m%n
+#
+#    file: org.apache.log4j.RollingFileAppender
+#      File: ./log/baven.log
+#      MaxFileSize: 10mb
+#      Threshold: DEBUG
+#      layout: org.apache.log4j.PatternLayout
+#        ConversionPattern: 【%p】【%d{yy-MM-dd}】【%c】%m%n
+
+
+
