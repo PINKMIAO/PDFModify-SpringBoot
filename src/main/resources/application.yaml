@@ -5,8 +5,8 @@ spring:
   datasource:
     driver-class-name: com.netsuite.jdbc.openaccess.OpenAccessDriver
     url: jdbc:ns://5179288.connect.api.netsuite.com:1708;ServerDataSource=NetSuite.com;Encrypted=1;CustomProperties=(AccountID=5179288;RoleID=3)
-    username: *
-    password: *
+    username: DataMigration@meorient.com
+    password: "@^*gLGyGCp"
     type: com.alibaba.druid.pool.DruidDataSource
 
     #Spring Boot 默认是不注入这些属性值的，需要自己绑定
@@ -31,8 +31,6 @@ spring:
     useGlobalDataSourceStat: true
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
 
-
-
   servlet:
     multipart:
       max-file-size: 20MB
@@ -41,22 +39,6 @@ spring:
   thymeleaf:
     cache: false
 
-#log4j:
-#  rootLogger: DEBUG,console,file
-#
-#  appender:
-#    console: org.apache.log4j.ConsoleAppender
-#      Target: System.out
-#      Threshold: DEBUG
-#      layout: org.apache.log4j.PatternLayout
-#        ConversionPattern: 【%c】-%m%n
-#
-#    file: org.apache.log4j.RollingFileAppender
-#      File: ./log/baven.log
-#      MaxFileSize: 10mb
-#      Threshold: DEBUG
-#      layout: org.apache.log4j.PatternLayout
-#        ConversionPattern: 【%p】【%d{yy-MM-dd}】【%c】%m%n
 
 
 
