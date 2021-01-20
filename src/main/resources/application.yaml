@@ -5,8 +5,8 @@ spring:
   datasource:
     driver-class-name: com.netsuite.jdbc.openaccess.OpenAccessDriver
     url: jdbc:ns://5179288.connect.api.netsuite.com:1708;ServerDataSource=NetSuite.com;Encrypted=1;CustomProperties=(AccountID=5179288;RoleID=3)
-    username: DataMigration@meorient.com
-    password: "@^*gLGyGCp"
+    username: *
+    password: *
     type: com.alibaba.druid.pool.DruidDataSource
 
     #Spring Boot 默认是不注入这些属性值的，需要自己绑定
