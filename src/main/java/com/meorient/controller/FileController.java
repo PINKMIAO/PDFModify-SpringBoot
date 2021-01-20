@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 public class FileController {
@@ -60,6 +61,13 @@ public class FileController {
         uploadFileName = uploadFileName.substring(0, uploadFileName.length() - 4);
 
         modifyPDF(in, uploadFileName);
+        try {
+
+        } catch (Exception e) {
+            model.addAttribute("msg", "内部出错");
+            e.printStackTrace();
+            return "index";
+        }
         in.close();
         model.addAttribute("msg", "上传处理成功");
 
@@ -70,19 +78,19 @@ public class FileController {
      * 获取公司信息及处理
      * @param in
      */
-    public void modifyPDF(InputStream in, String uploadFileName) {
+    public void modifyPDF(InputStream in, String uploadFileName) throws IOException {
+//        PdfBoxTest pdfBoxTest = null;
+//        try {
+//            pdfBoxTest = new PdfBoxTest(uploadFileName);
+//            getCompanyInfo();
+//            pdfBoxTest.getCoordinate(in, dataInfo);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
-        PdfBoxTest pdfBoxTest = null;
-        try {
-            pdfBoxTest = new PdfBoxTest(uploadFileName);
-            getCompanyInfo();
-
-            pdfBoxTest.getCoordinate(in, dataInfo);
-
-//            download();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        PdfBoxTest pdfBoxTest = new PdfBoxTest(uploadFileName);
+        getCompanyInfo();
+        pdfBoxTest.getCoordinate(in, dataInfo);
     }
 
     @GetMapping("/download")

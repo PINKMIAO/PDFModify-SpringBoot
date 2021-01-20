@@ -75,11 +75,6 @@ public class PdfBoxTest extends PDFTextStripper {
                     Coordinate customer = customerPosList.get(j);
                     List<Company> companyList = dataInfo.get(voucherId.get(j));
 
-                    count++;
-                    System.out.print(voucherId.get(j) + " ");
-                    if (count % 7 == 0) {
-                        System.out.println();
-                    }
                     // 一下判断是否为单个客户
                     if (CollectionUtils.isNotEmpty(companyList)) {
 
@@ -102,6 +97,7 @@ public class PdfBoxTest extends PDFTextStripper {
             newDoc.save(new File("D:\\temp\\" + fileName +"(水印).pdf"));
             System.out.println("Done");
         } catch (Exception e) {
+            System.out.println("复制时出错");
             e.printStackTrace();
         } finally {
             if (newDoc != null) {
